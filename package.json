@@ -1,0 +1,71 @@
+{
+  "name": "right-click-run-file",
+  "displayName": "Right Click Run File",
+  "description": "Right click any executable file to run it in the terminal",
+  "version": "1.0.1",
+  "publisher": "crsx",
+  "author": "Cristian Militaru",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crsmilitaru97/right-click-run-file"
+  },
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "keywords": [
+    "run",
+    "executable",
+    "terminal",
+    "context-menu",
+    "script",
+    "admin",
+    "sudo"
+  ],
+  "homepage": "https://github.com/crsmilitaru97/right-click-run-file",
+  "bugs": {
+    "url": "https://github.com/crsmilitaru97/right-click-run-file/issues"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "icon": "icon.png",
+  "scripts": {
+    "build": "npx esbuild src/extension.js --bundle --minify --sourcemap --platform=node --target=node18 --external:vscode --outfile=dist/extension.js",
+    "package": "npm run build && npx vsce package",
+    "publish": "npm run build && npx vsce publish",
+    "publish:ovsx": "npm run build && npx ovsx publish"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:right-click-run-file.run",
+    "onCommand:right-click-run-file.runAdmin"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "right-click-run-file.run",
+        "title": "Run File"
+      },
+      {
+        "command": "right-click-run-file.runAdmin",
+        "title": "Run File as Admin"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "right-click-run-file.run",
+          "when": "resourceExtname =~ /\\.(exe|com|bat|cmd|ps1|msi|vbs|vbe|js|jse|wsf|wsh|msc|sh|bash|zsh|fish|command|tool|py|rb|pl|php|lua|jar)$/i",
+          "group": "navigation@1"
+        },
+        {
+          "command": "right-click-run-file.runAdmin",
+          "when": "resourceExtname =~ /\\.(exe|com|bat|cmd|ps1|msi|vbs|vbe|js|jse|wsf|wsh|msc|sh|bash|zsh|fish|command|tool|py|rb|pl|php|lua|jar)$/i",
+          "group": "navigation@2"
+        }
+      ]
+    }
+  }
+}
