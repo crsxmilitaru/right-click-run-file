@@ -40,9 +40,11 @@ function executeFile(uri, asAdmin) {
   let command;
 
   if (isWindows) {
+    // Escape single quotes for PowerShell
+    const safePath = filePath.replace(/'/g, "''");
     command = asAdmin
-      ? `Start-Process -FilePath "${filePath}" -Verb RunAs`
-      : `& "${filePath}"`;
+      ? `Start-Process -FilePath '${safePath}' -Verb RunAs`
+      : `& '${safePath}'`;
   } else {
     command = asAdmin
       ? `sudo "${filePath}"`

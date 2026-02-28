@@ -2,7 +2,7 @@
   "name": "right-click-run-file",
   "displayName": "Right Click Run File",
   "description": "Right click any executable file to run it in the terminal",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "crsx",
   "author": "Cristian Militaru",
   "license": "ISC",
@@ -34,8 +34,9 @@
   "scripts": {
     "build": "npx esbuild src/extension.js --bundle --minify --sourcemap --platform=node --target=node18 --external:vscode --outfile=dist/extension.js",
     "package": "npm run build && npx vsce package",
-    "publish": "npm run build && npx vsce publish",
-    "publish:ovsx": "npm run build && npx ovsx publish"
+    "publish:vsce": "npm run build && npx vsce publish",
+    "publish:ovsx": "npm run build && npx ovsx publish",
+    "publish": "npm run build && npx vsce publish && npx ovsx publish"
   },
   "main": "./dist/extension.js",
   "activationEvents": [
